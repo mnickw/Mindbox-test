@@ -22,7 +22,7 @@ namespace FigureArea
         /// Initialize a new instance of the Circle class with the radius of the circle.
         /// </summary>
         /// <param name="radius">The radius of the circle.</param>
-        /// <exception cref="ArgumentOutOfRangeException">If the radius is less than or equal to zero.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">If the radius is not a positive number.</exception>
         public Circle(double radius)
         {
             ThrowIfRadiusIsWrong(radius);
@@ -32,13 +32,13 @@ namespace FigureArea
 
         private static void ThrowIfRadiusIsWrong(double radius)
         {
-            if (radius <= 0)
+            if (!double.IsFinite(radius) || radius <= 0)
                 throw new ArgumentOutOfRangeException(nameof(radius), radius,
-                    "The radius cannot be less than or equal to zero.");
+                    "The radius must be a positive number.");
         }
 
         /// <summary>
-        /// Calculates the area of a circle. Doesn't throw exceptions if radius is less than or equal to zero.
+        /// Calculates the area of a circle. Doesn't check if radius is a positive number.
         /// </summary>
         /// <param name="radius">The radius of the circle.</param>
         public static double CalculateAreaWithoutRadiusCheck(double radius) =>

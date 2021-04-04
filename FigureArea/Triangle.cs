@@ -40,7 +40,7 @@ namespace FigureArea
         /// <param name="firstSide">First side.</param>
         /// <param name="secondSide">Second side.</param>
         /// <param name="thirdSide">Third side.</param>
-        /// <exception cref="ArgumentOutOfRangeException">If the side is less than or equal to zero.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">If the side is not a positive number.</exception>
         public Triangle(double firstSide, double secondSide, double thirdSide)
         {
             ThrowIfSidesAreOutOfRange(firstSide, secondSide, thirdSide);
@@ -53,12 +53,12 @@ namespace FigureArea
 
         private static void ThrowIfSidesAreOutOfRange(double firstSide, double secondSide, double thirdSide)
         {
-            var argumentOutOfRangeMessage = "Side cannot be less than or equal to zero.";
-            if (firstSide <= 0)
+            var argumentOutOfRangeMessage = "Side must be a positive number.";
+            if (!double.IsFinite(firstSide) || firstSide <= 0)
                 throw new ArgumentOutOfRangeException(nameof(firstSide), firstSide, argumentOutOfRangeMessage);
-            if (secondSide <= 0)
+            if (!double.IsFinite(secondSide) || secondSide <= 0)
                 throw new ArgumentOutOfRangeException(nameof(secondSide), secondSide, argumentOutOfRangeMessage);
-            if (thirdSide <= 0)
+            if (!double.IsFinite(thirdSide) || thirdSide <= 0)
                 throw new ArgumentOutOfRangeException(nameof(thirdSide), thirdSide, argumentOutOfRangeMessage);
         }
 
@@ -76,7 +76,7 @@ namespace FigureArea
         }
 
         /// <summary>
-        /// Calculates the area of a triangle. Doesn't throw exceptions if side is less than or equal to zero.
+        /// Calculates the area of a triangle. Doesn't check if side is a positive number.
         /// </summary>
         /// <param name="firstSide">First side.</param>
         /// <param name="secondSide">Second side.</param>
