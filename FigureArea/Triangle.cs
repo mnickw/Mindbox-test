@@ -43,7 +43,7 @@ namespace FigureArea
         /// <exception cref="ArgumentOutOfRangeException">If the side is not a positive number.</exception>
         public Triangle(double firstSide, double secondSide, double thirdSide)
         {
-            ThrowIfSidesAreOutOfRange(firstSide, secondSide, thirdSide);
+            ThrowIfSidesAreWrong(firstSide, secondSide, thirdSide);
             FirstSide = firstSide;
             SecondSide = secondSide;
             ThirdSide = thirdSide;
@@ -51,15 +51,20 @@ namespace FigureArea
             Area = CalculateAreaWithoutSidesCheck(FirstSide, SecondSide, ThirdSide);
         }
 
-        private static void ThrowIfSidesAreOutOfRange(double firstSide, double secondSide, double thirdSide)
+        private static void ThrowIfSidesAreWrong(double firstSide, double secondSide, double thirdSide)
         {
-            var argumentOutOfRangeMessage = "Side must be a positive number.";
+            var argumentOutOfRangeMessage = "The side must be a finite positive number.";
             if (!double.IsFinite(firstSide) || firstSide <= 0)
                 throw new ArgumentOutOfRangeException(nameof(firstSide), firstSide, argumentOutOfRangeMessage);
             if (!double.IsFinite(secondSide) || secondSide <= 0)
                 throw new ArgumentOutOfRangeException(nameof(secondSide), secondSide, argumentOutOfRangeMessage);
             if (!double.IsFinite(thirdSide) || thirdSide <= 0)
                 throw new ArgumentOutOfRangeException(nameof(thirdSide), thirdSide, argumentOutOfRangeMessage);
+
+            if (firstSide + secondSide <= thirdSide ||
+                firstSide + thirdSide <= secondSide ||
+                secondSide + thirdSide <= firstSide)
+                throw new ArgumentException("A triangle cannot exist with such sides.");
         }
 
         /// <summary>
@@ -94,10 +99,10 @@ namespace FigureArea
         /// <param name="firstSide">First side.</param>
         /// <param name="secondSide">Second side.</param>
         /// <param name="thirdSide">Third side.</param>
-        /// <exception cref="ArgumentOutOfRangeException">If the side is less than or equal to zero.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">If the side is not a positive number.</exception>
         public static double CalculateArea(double firstSide, double secondSide, double thirdSide)
         {
-            ThrowIfSidesAreOutOfRange(firstSide, secondSide, thirdSide);
+            ThrowIfSidesAreWrong(firstSide, secondSide, thirdSide);
             return CalculateAreaWithoutSidesCheck(firstSide, secondSide, thirdSide);
         }
     }

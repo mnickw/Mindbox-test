@@ -25,7 +25,7 @@ namespace FigureArea.Tests
         [TestCase(1, 1, double.NaN)]
         [TestCase(1, 1, double.NegativeInfinity)]
         [TestCase(1, 1, double.PositiveInfinity)]
-        public void Triangle_Ctor_WhenWrongSides_ThrowsArgumentOutOfRangeException(double firstSide, double secondSide, double thirdSide)
+        public void Triangle_Ctor_WhenSidesOutOfRangeOrNan_ThrowsArgumentOutOfRangeException(double firstSide, double secondSide, double thirdSide)
         {
             Assert.Throws<ArgumentOutOfRangeException>(() => new Triangle(firstSide, secondSide, thirdSide));
         }
@@ -41,6 +41,12 @@ namespace FigureArea.Tests
             Assert.AreEqual(expectedArea, triangleArea);
         }
 
-        //Проверить, что треугольник существует
+        [Test]
+        [TestCase(1, 2, 3.5)]
+        [TestCase(1, 1, 2)]
+        public void Triangle_Ctor_WhenTriangleCannotExist_ThrowsArgumentException(double firstSide, double secondSide, double thirdSide)
+        {
+            Assert.Throws<ArgumentException>(() => new Triangle(firstSide, secondSide, thirdSide));
+        }
     }
 }

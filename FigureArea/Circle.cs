@@ -49,7 +49,7 @@ namespace FigureArea
         /// Calculates the area of a circle.
         /// </summary>
         /// <param name="radius">The radius of the circle.</param>
-        /// <exception cref="ArgumentOutOfRangeException">If the radius is less than or equal to zero.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">If the radius is not a positive number.</exception>
         public static double CalculateArea(double radius)
         {
             ThrowIfRadiusIsWrong(radius);
