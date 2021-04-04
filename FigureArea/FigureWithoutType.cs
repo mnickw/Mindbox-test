@@ -22,7 +22,7 @@ namespace FigureArea
         /// <summary>
         /// Gets an encapsulated method that validates the figure's properties and throws an exception if validation fails.
         /// </summary>
-        public Action<TFigureProperties> ThrowIfArgsAreWrongAction { get; }
+        public Action<TFigureProperties> ThrowIfPropertiesAreWrongAction { get; }
 
         /// <summary>
         /// Gets an encapsulated method that calculates the area of the figure with figure properties.
@@ -45,9 +45,9 @@ namespace FigureArea
         /// <param name="args">The properties of the figure.</param>
         public FigureWithoutType(Action<TFigureProperties> throwIfArgsAreWrongAction, Func<TFigureProperties, double> calculateAreaFunc, TFigureProperties args)
         {
-            ThrowIfArgsAreWrongAction = throwIfArgsAreWrongAction;
+            ThrowIfPropertiesAreWrongAction = throwIfArgsAreWrongAction;
             CalculateAreaFunc = calculateAreaFunc;
-            ThrowIfArgsAreWrongAction?.Invoke(args);
+            ThrowIfPropertiesAreWrongAction?.Invoke(args);
             Area = calculateAreaFunc(args);
         }
     }
