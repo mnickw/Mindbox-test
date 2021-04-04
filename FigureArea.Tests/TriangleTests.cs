@@ -48,5 +48,25 @@ namespace FigureArea.Tests
         {
             Assert.Throws<ArgumentException>(() => new Triangle(firstSide, secondSide, thirdSide));
         }
+
+        [Test]
+        public void Triangle_IsRightAngled_WhenItIsRightAngled_ReturnsTrue()
+        {
+            var triangle = new Triangle(3, 4, 5);
+
+            var isRightAngled = triangle.IsRightAngled;
+
+            Assert.AreEqual(true, isRightAngled);
+        }
+
+        [Test]
+        public void Triangle_IsRightAngled_WhenItIsNotRightAngled_ReturnsFalse()
+        {
+            var triangle = new Triangle(3, 4, 6);
+
+            var isRightAngled = triangle.IsRightAngled;
+
+            Assert.AreEqual(false, isRightAngled);
+        }
     }
 }

@@ -16,7 +16,7 @@ namespace FigureArea
         /// <summary>
         /// Gets a value indicating whether the triangle is right-angled.
         /// </summary>
-        private bool IsRightAngled { get; }
+        public bool IsRightAngled { get; }
 
         /// <summary>
         /// Gets the first side of the triangle.
@@ -41,6 +41,7 @@ namespace FigureArea
         /// <param name="secondSide">Second side.</param>
         /// <param name="thirdSide">Third side.</param>
         /// <exception cref="ArgumentOutOfRangeException">If the side is not a positive number.</exception>
+        /// <exception cref="ArgumentException">If a triangle with such sides cannot exist.</exception>
         public Triangle(double firstSide, double secondSide, double thirdSide)
         {
             ThrowIfSidesAreWrong(firstSide, secondSide, thirdSide);
@@ -68,20 +69,35 @@ namespace FigureArea
         }
 
         /// <summary>
-        /// Checks if a triangle is right-angled.
+        /// Checks if a triangle is right-angled. Doesn't check if the sides are wrong.
         /// </summary>
         /// <param name="firstSide">First side.</param>
         /// <param name="secondSide">Second side.</param>
         /// <param name="thirdSide">Third side.</param>
-        public static bool CheckIsRightAngled(double firstSide, double secondSide, double thirdSide)
+        public static bool CheckIsRightAngledWithoutSidesCheck(double firstSide, double secondSide, double thirdSide)
         {
             var hypotenuse = new[] { firstSide, secondSide, thirdSide }.Max();
             var hypotenuseSqr = hypotenuse * hypotenuse;
             return firstSide * firstSide + secondSide * secondSide + thirdSide * thirdSide == hypotenuseSqr + hypotenuseSqr;
         }
 
+        // Additional, if the client wants to check if a triangle is right-angled without creating an instance.
         /// <summary>
-        /// Calculates the area of a triangle. Doesn't check if side is a positive number.
+        /// Checks if a triangle is right-angled.
+        /// </summary>
+        /// <param name="firstSide">First side.</param>
+        /// <param name="secondSide">Second side.</param>
+        /// <param name="thirdSide">Third side.</param>
+        /// <exception cref="ArgumentOutOfRangeException">If the side is not a positive number.</exception>
+        /// <exception cref="ArgumentException">If a triangle with such sides cannot exist.</exception>
+        public static bool CheckIsRightAngled(double firstSide, double secondSide, double thirdSide)
+        {
+            ThrowIfSidesAreWrong(firstSide, secondSide, thirdSide);
+            return CheckIsRightAngledWithoutSidesCheck(firstSide, secondSide, thirdSide);
+        }
+
+        /// <summary>
+        /// Calculates the area of a triangle. Doesn't check if the sides are wrong.
         /// </summary>
         /// <param name="firstSide">First side.</param>
         /// <param name="secondSide">Second side.</param>
@@ -92,7 +108,7 @@ namespace FigureArea
             return Math.Sqrt(semiPerimeter * (semiPerimeter - firstSide) * (semiPerimeter - secondSide) * (semiPerimeter - thirdSide));
         }
 
-        // Additional, if the client wants to calculate the area without creating a class.
+        // Additional, if the client wants to calculate the area without creating an instance.
         /// <summary>
         /// Calculates the area of a triangle.
         /// </summary>
@@ -100,6 +116,7 @@ namespace FigureArea
         /// <param name="secondSide">Second side.</param>
         /// <param name="thirdSide">Third side.</param>
         /// <exception cref="ArgumentOutOfRangeException">If the side is not a positive number.</exception>
+        /// <exception cref="ArgumentException">If a triangle with such sides cannot exist.</exception>
         public static double CalculateArea(double firstSide, double secondSide, double thirdSide)
         {
             ThrowIfSidesAreWrong(firstSide, secondSide, thirdSide);

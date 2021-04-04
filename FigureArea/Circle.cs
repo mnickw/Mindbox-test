@@ -38,13 +38,13 @@ namespace FigureArea
         }
 
         /// <summary>
-        /// Calculates the area of a circle. Doesn't check if radius is a positive number.
+        /// Calculates the area of a circle. Doesn't check if radius is wrong.
         /// </summary>
         /// <param name="radius">The radius of the circle.</param>
         public static double CalculateAreaWithoutRadiusCheck(double radius) =>
             Math.PI * radius * radius;
 
-        // Additional, if the client wants to calculate the area without creating a class.
+        // Additional, if the client wants to calculate the area without creating an instance.
         /// <summary>
         /// Calculates the area of a circle.
         /// </summary>
