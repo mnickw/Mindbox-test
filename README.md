@@ -42,8 +42,8 @@ public IFigureWithArea CreateRectangle(double firstSide, double secondSide)
             (t => { if (t.first <= 0 || t.second <= 0) throw new ArgumentOutOfRangeException(); },
             t => t.first * t.second, (firstSide, secondSide));
         Console.WriteLine("Прямоугольник создан.");
-        Console.WriteLine("Первая сторона прямоугольника: " + rect.FigureArgs.first);
-        Console.WriteLine("Вторая сторона прямоугольника: " + rect.FigureArgs.second);
+        Console.WriteLine("Первая сторона прямоугольника: " + rect.FigureProperties.first);
+        Console.WriteLine("Вторая сторона прямоугольника: " + rect.FigureProperties.second);
         Console.WriteLine("Если увеличить вторую сторону прямоугольника в два раза, то площадь будет равна "
             + rect.CalculateAreaFunc((firstSide, secondSide * 2)));
         return rect;
